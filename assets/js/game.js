@@ -18,11 +18,11 @@ var getPlayerName = function() {
 
 var playerInfo = {
   name: getPlayerName(),
-  health: 100,
+  health: 200,
   attack: 10,
   money: 10,
   reset: function() {
-    this.health = 100;
+    this.health = 200;
     this.money = 10;
     this.attack = 10;
   },
@@ -57,10 +57,10 @@ var enemyInfo = [
     name: "Amy Android",
     attack: randomNumber(10, 14)
   },
-  {
-    name: "Robo Trumble",
-    attack: randomNumber(10, 14)
-  }
+  // {
+  //   name: "Robo Trumble",
+  //   attack: randomNumber(10, 14)
+  // }
 ];
 
 var fightOrSkip = function() {
@@ -204,8 +204,20 @@ var startGame = function() {
 // function to end the entire game
 var endGame = function() {
   // if player is still alive, player wins!
+  window.alert("The game has now ended. Let's see how you did!");
+
+  var highscore = localStorage.getItem("highscore");
+  highScore = highScore || 0;
+
+    
   if (playerInfo.health > 0) {
+    if (parseInt(localStorage.getItem("highscore")) < playerInfo.money) {
+      localStorage.setItem("highscore", playerInfo.money)
+      localStorage.setItem("name", playerInfo.name)
+    }
+
     window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+    window.alert("All time high score is: " + localStorage.getItem("highscore") + ". By:" + localStorage.getItem("name") );
   } 
   else {
     window.alert("You've lost your robot in battle.");
